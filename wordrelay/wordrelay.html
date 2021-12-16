@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+    <form>
+        <p v-model="word">{{word}}</p>
+
+        <input type="text" ref="answer" v-model="value">
+        <button type="submit" @click="onSubmitClick">입력!</button>
+        <p>{{result}}</p>
+    </form>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#root',
+            data: {
+                word: "김",
+                result:"",
+                value: "",
+            },
+            methods:{
+                onSubmitClick(e){
+                    e.preventDefault();
+                    const lastChar = this.word.charAt(this.word.length - 1)
+                    const firstChar = this.value.charAt(0);
+                    if (lastChar === firstChar) {
+                        this.result = "참";
+                        this.word = this.value;
+                    } else {
+                        this.result = "거짓";
+                    }
+                    this.value='';
+                    this.$ref.answer.focus();
+                }
+            },
+        });
+    </script>
+</body>
+</html>
